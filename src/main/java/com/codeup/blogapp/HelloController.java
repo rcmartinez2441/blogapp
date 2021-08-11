@@ -27,4 +27,10 @@ public class HelloController {
     }
 
 
+    @GetMapping("/home")
+    public String welcome(){
+        return "/home.html";
+    }
+
+
 }
