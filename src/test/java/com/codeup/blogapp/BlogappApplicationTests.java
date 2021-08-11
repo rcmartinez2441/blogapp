@@ -1,4 +1,4 @@
-package com.codeup;
+package com.codeup.blogapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
