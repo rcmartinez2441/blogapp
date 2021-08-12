@@ -1,28 +1,53 @@
 package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.Post;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+//Your user shouldnt see '/api/posts' its more for backend
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostController {
 
+    @GetMapping
+    private List<Post> getPost() { //Like get BLOG Posts not Post request
+        return new ArrayList<>() {{
+            add(new Post(69L, "test1", "fdsfdsfafds"));
+            add(new Post(420L, "test2", "fdsfdsfafdsfdsfdsfafdsfdsfdsfafdsfdsfdsfafds"));
+            add(new Post(9L, "test2", "fdsfdsfafds fdsfdsfafds fdsfdsfafds"));
+        }};
+    }
+
+    //Ex. someone wants to make a get request with specific constraints (user only wants one post back based on ID
+    //Ex. someone is making a request to like "/api/posts/1 - with 1 being ID
     @GetMapping("{id}")
-    public List<Post> getPost(@PathVariable Long id){
-        List<Post> listOfPosts = new ArrayList<>();
+    private Post getPostByID(@PathVariable Long id) {
+        if (id == 1) {
+            return new Post(69L, "test1", "fdsfdsfafds");
+        }else {
+            return null;
+        }
+    }
 
-        listOfPosts.add( new Post(69L,"test1", "fdsfdsfafds"));
-        listOfPosts.add( new Post(420L,"test2", "fdsfdsfafdsfdsfdsfafdsfdsfdsfafdsfdsfdsfafds"));
-        listOfPosts.add( new Post(9L,"test2", "fdsfdsfafds fdsfdsfafds fdsfdsfafds"));
+    @PostMapping
+    //It will looks at the fetch request and find the body property
+    //"I should be able to transform it to any kind of object, in this case a Post Object"
+    private void createPost(@RequestBody Post post){
+        System.out.println(post.getId());
+        System.out.println(post.getTitle());
+        System.out.println(post.getContent());
+    }
 
-        return listOfPosts;
+    @PutMapping("{id}")
+    private void updatePost(@PathVariable Long id){
 
-    };
+    }
+
+    @DeleteMapping("{id}")
+    private void deletePost(@PathVariable Long id){
+
+    }
 
 }
