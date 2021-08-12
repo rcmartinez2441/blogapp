@@ -16,7 +16,7 @@ public class PostController {
         return new ArrayList<>() {{
             add(new Post(69L, "test1", "fdsfdsfafds"));
             add(new Post(420L, "test2", "fdsfdsfafdsfdsfdsfafdsfdsfdsfafdsfdsfdsfafds"));
-            add(new Post(9L, "test2", "fdsfdsfafds fdsfdsfafds fdsfdsfafds"));
+            add(new Post(9L, "test3", "fdsfdsfafds fdsfdsfafds fdsfdsfafds"));
         }};
     }
 
@@ -34,20 +34,22 @@ public class PostController {
     @PostMapping
     //It will looks at the fetch request and find the body property
     //"I should be able to transform it to any kind of object, in this case a Post Object"
-    private void createPost(@RequestBody Post post){
-        System.out.println(post.getId());
-        System.out.println(post.getTitle());
-        System.out.println(post.getContent());
+    private void createPost(@RequestBody Post newPost){
+        System.out.println(newPost.getId());
+        System.out.println(newPost.getTitle());
+        System.out.println(newPost.getContent());
     }
 
     @PutMapping("{id}")
-    private void updatePost(@PathVariable Long id){
-
+    private void updatePost(@PathVariable Long id, @RequestBody Post updatedPost){
+        System.out.println(updatedPost.getId());
+        System.out.println(updatedPost.getTitle());
+        System.out.println(updatedPost.getContent());
     }
 
     @DeleteMapping("{id}")
     private void deletePost(@PathVariable Long id){
-
+        System.out.println("You successfully deleted post with ID: " + id);
     }
 
 }
