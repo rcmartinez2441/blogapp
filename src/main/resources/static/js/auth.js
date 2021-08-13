@@ -40,7 +40,7 @@ export default function addLoginEvent() {
  */
 export function getAuthBearerTokenHeader() {
     const token = localStorage.getItem("access_token");
-    return token
+    return token //if token is truthy, return first set of {}, else return second set of {}
         ? {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + `${token}`}

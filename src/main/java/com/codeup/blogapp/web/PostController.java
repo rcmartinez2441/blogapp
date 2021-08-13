@@ -12,7 +12,7 @@ import java.util.List;
 public class PostController {
 
     @GetMapping
-    private List<Post> getPost() { //Like get BLOG Posts not Post request
+    private List<Post> getPost() { // get BLOG Posts not Post request
         return new ArrayList<>() {{
             add(new Post(69L, "test1", "fdsfdsfafds"));
             add(new Post(420L, "test2", "fdsfdsfafdsfdsfdsfafdsfdsfdsfafdsfdsfdsfafds"));

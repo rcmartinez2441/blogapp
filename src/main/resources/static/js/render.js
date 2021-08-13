@@ -1,5 +1,4 @@
 import Navbar from "./views/partials/Navbar.js";
-import PostIndex from "./views/PostIndex";
 
 /**
  * Pushes the current URI to the URL bar and sets the HTML of the app div.
@@ -11,11 +10,11 @@ export default function render(props, route) {
     const title = `REST Blog - ${route.title}`;
     history.pushState(props, title, route.uri);
     document.title = title;
+    //Add view to DOM
     app.innerHTML = `${Navbar(null)} ${route.returnView(props)}`;
+
+    //if it exists if its not null or undefined
     if (route.viewEvent){
         route.viewEvent();
-    }
-    if (route.uri === '/posts'){
-        console.log("Testing Conditional")
     }
 }
