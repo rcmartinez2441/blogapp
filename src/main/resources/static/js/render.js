@@ -1,4 +1,5 @@
 import Navbar from "./views/partials/Navbar.js";
+import PostIndex from "./views/PostIndex";
 
 /**
  * Pushes the current URI to the URL bar and sets the HTML of the app div.
@@ -13,5 +14,8 @@ export default function render(props, route) {
     app.innerHTML = `${Navbar(null)} ${route.returnView(props)}`;
     if (route.viewEvent){
         route.viewEvent();
+    }
+    if (route.uri === '/posts'){
+        console.log("Testing Conditional")
     }
 }

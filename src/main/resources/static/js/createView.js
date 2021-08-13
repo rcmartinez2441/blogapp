@@ -10,6 +10,14 @@ import {getAuthBearerTokenHeader} from "./auth.js";
 export default function createView(URI) {
 
     let route = router(URI);
+    //This returns an object like:
+    //        {
+    //             returnView: Home,
+    //             state: {},
+    //             uri: '/',
+    //             title: 'Home',
+    //         }
+    //Based on URI which is like: "/"
 
     // if route is invalid, return a 404 page
     if (!route) {

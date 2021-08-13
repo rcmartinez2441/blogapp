@@ -6,7 +6,7 @@ import createView from './createView.js';
 function loadViewOnPageRequest() {
     window.addEventListener('DOMContentLoaded', function() {
         //TODO: Switched to location.pathname so the route would be accurate to current view
-        createView(location.pathname);
+        createView(location.pathname); //location.pathname will give you endpoint like "/" or "/posts"
     });
 }
 
