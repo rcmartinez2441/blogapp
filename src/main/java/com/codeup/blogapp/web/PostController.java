@@ -11,13 +11,15 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostController {
 
+
     @GetMapping
     private List<Post> getPost() { // get BLOG Posts not Post request
-        return new ArrayList<>() {{
-            add(new Post(69L, "test1", "fdsfdsfafds"));
-            add(new Post(420L, "test2", "fdsfdsfafdsfdsfdsfafdsfdsfdsfafdsfdsfdsfafds"));
-            add(new Post(9L, "test3", "fdsfdsfafds fdsfdsfafds fdsfdsfafds"));
-        }};
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post(69L, "test1", "fdsfdsfafds"));
+        posts.add(new Post(420L, "test2", "fdsfdsfafdsfdsfdsfafdsfdsfdsfafdsfdsfdsfafds"));
+        posts.add(new Post(9L, "test3", "fdsfdsfafds fdsfdsfafds fdsfdsfafds"));
+
+        return posts;
     }
 
     //Ex. someone wants to make a get request with specific constraints (user only wants one post back based on ID
@@ -26,7 +28,7 @@ public class PostController {
     private Post getPostByID(@PathVariable Long id) {
         if (id == 1) {
             return new Post(69L, "test1", "fdsfdsfafds");
-        }else {
+        } else {
             return null;
         }
     }
@@ -34,21 +36,21 @@ public class PostController {
     @PostMapping
     //It will looks at the fetch request and find the body property
     //"I should be able to transform it to any kind of object, in this case a Post Object"
-    private void createPost(@RequestBody Post newPost){
+    private void createPost(@RequestBody Post newPost) {
         System.out.println(newPost.getId());
         System.out.println(newPost.getTitle());
         System.out.println(newPost.getContent());
     }
 
     @PutMapping("{id}")
-    private void updatePost(@PathVariable Long id, @RequestBody Post updatedPost){
+    private void updatePost(@PathVariable Long id, @RequestBody Post updatedPost) {
         System.out.println(updatedPost.getId());
         System.out.println(updatedPost.getTitle());
         System.out.println(updatedPost.getContent());
     }
 
     @DeleteMapping("{id}")
-    private void deletePost(@PathVariable Long id){
+    private void deletePost(@PathVariable Long id) {
         System.out.println("You successfully deleted post with ID: " + id);
     }
 
