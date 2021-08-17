@@ -1,23 +1,31 @@
 package com.codeup.blogapp.data;
 
 
+import java.util.Collection;
+
 public class User {
     private long id;
     private String username;
     private String email;
     private String password;
     private Role role = Role.USER;
+    private Collection<Post> posts; //Collection is for when we hook up our database, it wants a very generic. it can turn it into an arraylist or something else
 
     public enum Role {USER, ADMIN};
 
     public User() {
     }
 
-    public User(long id, String username, String email, String password) {
+    public User(long id, String username, String email, String password, Collection<Post> posts) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.posts = posts;
+    }
+
+    public User (String userName){
+        this.username = username;
     }
 
     public long getId() {
@@ -58,5 +66,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Collection<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Collection<Post> posts) {
+        this.posts = posts;
     }
 }
