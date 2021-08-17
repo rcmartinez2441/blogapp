@@ -8,5 +8,6 @@ export default function Navbar(props) {
             <a href="/users" data-link>Register</a>
             <a href="/search" data-link>Search</a>
         </nav>
+        <br>
     `;
 }
