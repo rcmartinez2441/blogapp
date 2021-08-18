@@ -16,19 +16,20 @@ public class UsersController {
 
     private List<User> userList = new ArrayList<>();
     User user = new User(1, "testUser", "test@gmail.com", "test123", null);
+
     List<Post> post = new ArrayList<>(){{
-        add(new Post(69L, "Clifford Joins the Army", "War, war never changes", user) );
-        add(new Post(69L, "Clifford Joins the Army", "War, war never changes", user));
-        add(new Post(420L, "Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin", user));
-        add(new Post(9L, "Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats", user));
+        add(new Post("Clifford Joins the Army", "War, war never changes",1L) );
+        add(new Post("Clifford Joins the Army", "War, war never changes",2L));
+        add(new Post("Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin",3L));
+        add(new Post("Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats",4L));
     }};
 
     UsersController(){
         userList.add(new User(1, "poop", "poop@gmail", "notpoop",post));
-        userList.add(new User(2, "woof", "woof@gmail", "notwoof", null));
-        userList.add(new User(3, "gabagoole4", "gabagoole4@gmail", "notgabagoole",null));
-        userList.add(new User(4, "gabagoole5", "gabagoole5@gmail", "notgabagoole", null));
-        userList.add(new User(5, "gabagoole5", "gabagoole6@gmail", "notgabagoole", null));
+        userList.add(new User(2, "woof", "woof@gmail", "notwoof", post));
+        userList.add(new User(3, "gabagoole4", "gabagoole4@gmail", "notgabagoole",post));
+        userList.add(new User(4, "gabagoole5", "gabagoole5@gmail", "notgabagoole", post));
+        userList.add(new User(5, "gabagoole5", "gabagoole6@gmail", "notgabagoole", post));
     }
 
     //***** CREATE *****

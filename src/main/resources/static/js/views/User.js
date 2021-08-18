@@ -1,3 +1,6 @@
+import createView from "../createView.js";
+import {postDeleteClickEvent, postEditClickEvent} from "./PostIndex.js";
+
 export default function User(props){
 	return `
 		<!DOCTYPE html>
@@ -10,7 +13,6 @@ export default function User(props){
 			<div class="searchBar">
 				<input id="search" name="search" type="text" placeholder="Search Here">
 				<select name="findBy" id="findBy">
-					<option value="Id">ID</option>
 					<option value="Email">EMAIL</option>
 					<option value="Username">USERNAME</option>
 				</select>
@@ -24,21 +26,33 @@ export default function User(props){
 
 export function SearchEvent(){
 	$('#searchBtn').click(function (){
-		let input =  $('#search').val();
-		let findBy = $('#findBy').val();
+		let searchInput =  $('#search').val();
+		let searchType = $('#findBy').val();
+
+		ajaxRequestSearch(searchInput, urlEndPoint(searchType))
 
 	})
 }
 
-function ajaxRequestSearch(searchInput, findBy){
+function urlEndPoint( chosenSearchType ){
+	switch (chosenSearchType){
+		case 'Email':
+			return 'findByEmail?email='
+		case 'Username':
+			return 'findByUsername?userName='
+	}
+}
+
+function ajaxRequestSearch(searchInput, urlEndPoint){
+	console.log("Made it to Ajax Request")
 	$.ajax({
-		url: `http://localhost:8080/api/users/findBy${findBy}?`,
+		url: `http://localhost:8080/api/users/${urlEndPoint}${searchInput}`,
 		type: "GET",
 		contentType: "application/json",
-		data: putObj,
 		success: function (result) {
 			console.log(result);
-			createView("/posts");
+			displayResultsInDOM(result)
+			// createView("/search");
 		},
 		error: function (result) {
 			console.log("Caught error for ajax call");
@@ -46,5 +60,28 @@ function ajaxRequestSearch(searchInput, findBy){
 			alert("There was an issue changing the post.  Please try again later.")
 		}
 	})
+}
+
+function displayResultsInDOM(data){
+	let userResult = $('#userResult')
+	userResult.html('');
+	userResult.append(`
+		<h2>Welcome Back, ${data.username}</h2>
+	`);
+
+	data.posts.forEach(post => {
+		userResult.append(`
+			<div class="post">
+				<h3 class="edit-title" contenteditable="false">${post.title}</h3>
+				<h6 class="edit-body" contenteditable="false">${post.content}</h6>
+				<div><em>Created By: ${data.username}</em></div>
+				<button type="button" data-id=${post.id} class="editPost-btn" >Edit</button>
+				<button type="button" class="deletePost-btn" data-id=${post.id}>Delete</button>
+			</div>
+		`)
+	})
+	postEditClickEvent();
+	postDeleteClickEvent();
+
 }
 

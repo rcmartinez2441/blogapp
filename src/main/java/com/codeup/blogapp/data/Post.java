@@ -10,9 +10,10 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String content){
+    public Post(String title, String content, Long id){
         this.title = title;
         this.content = content;
+        this.id = id;
     }
 
     public Post(Long id, String title, String content, User user) {

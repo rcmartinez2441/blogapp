@@ -19,6 +19,7 @@ export default function PostIndex(props) {
 					<div class="post">
 						<h3 class="edit-title" contenteditable="false">${post.title}</h3>
 						<h6 class="edit-body" contenteditable="false">${post.content}</h6>
+						<div><em>Created By: ${post.user.username}</em></div>
 						<button type="button" data-id=${post.id} class="editPost-btn" >Edit</button>
 						<button type="button" class="deletePost-btn" data-id=${post.id}>Delete</button>
 					</div>
@@ -58,7 +59,7 @@ function newPostSubmitClickEvent() {
 
 }
 
-function postEditClickEvent() {
+export function postEditClickEvent() {
 	$('.editPost-btn').click(function () {
 		let editable = $(this).siblings('.edit-title').attr("contenteditable");
 		if ( editable === "false" ) {
@@ -97,7 +98,7 @@ function submitEditEvent(requestBody) {
 	})
 }
 
-function postDeleteClickEvent() {
+export function postDeleteClickEvent() {
 	$('.deletePost-btn').click(function () {
 		if( confirm("are you sure?") ){
 			let id = $(this).attr('data-id')
