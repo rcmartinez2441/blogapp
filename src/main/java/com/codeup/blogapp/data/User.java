@@ -13,7 +13,7 @@ public class User {
 
     public enum Role {USER, ADMIN};
 
-    public User() {
+    public User(){
     }
 
     public User(long id, String username, String email, String password, Collection<Post> posts) {
