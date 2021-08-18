@@ -15,7 +15,7 @@ import java.util.List;
 public class UsersController {
 
     private List<User> userList = new ArrayList<>();
-    User user = new User(1, "testUser", "test@gmail.com", "test123", null);
+//    User user = new User(1, "testUser", "test@gmail.com", "test123", null);
 
     List<Post> post = new ArrayList<>(){{
         add(new Post("Clifford Joins the Army", "War, war never changes",1L) );

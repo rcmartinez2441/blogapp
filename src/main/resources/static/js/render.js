@@ -11,7 +11,10 @@ export default function render(props, route) {
     history.pushState(props, title, route.uri);
     document.title = title;
     //Add view to DOM
-    app.innerHTML = `${Navbar(null)} ${route.returnView(props)}`;
+    app.innerHTML = `
+        ${Navbar(null)} 
+        ${route.returnView(props)}
+    `;
 
     //if it exists if its not null or undefined
     if (route.viewEvent){
