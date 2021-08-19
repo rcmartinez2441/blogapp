@@ -13,10 +13,11 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String content, Long id){
+    public Post(String title, String content, Long id, Collection<Category> categories){
         this.title = title;
         this.content = content;
         this.id = id;
+        this.categories = categories;
     }
 
     public Post(Long id, String title, String content, User user) {

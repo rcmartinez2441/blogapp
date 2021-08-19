@@ -16,6 +16,7 @@ export default function PostIndex(props) {
 				</form>
 	<!--         Make a  form here, forms from HTML amd will have a click event and listen to that id, the event fires off, now  -->
 				<div>
+					<!-- PUT THIS IN A FUNCTION FOR MORE FLEXABILITY	-->
 					${props.posts.map(post => `
 						<div class="post">
 							<h3 class="edit-title" contenteditable="false">${post.title}</h3>

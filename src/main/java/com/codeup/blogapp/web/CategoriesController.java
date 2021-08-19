@@ -20,11 +20,13 @@ public class CategoriesController {
     Collection<Post> samplePosts = new ArrayList<Post>();
 
     CategoriesController() {
+        //Loops to add 5 categories and posts to each respective variable
         for (long i = 1; i < 6; i++) {
             samplePosts.add(new Post(i,"Title" + i, "Content" + i, new User("user1")));
             sampleCategories.add(new Category(i, "category" + i));
         }
 
+        //Loops up until the total amount of Categories then inserts a random number of posts in samplePosts per category
         for (int i = 0; i < sampleCategories.size(); i++) {
             int numOfPostsToAdd = (int) Math.floor((Math.random() * 5) + 1);
             Collection<Post> randomPosts = new ArrayList<>();
