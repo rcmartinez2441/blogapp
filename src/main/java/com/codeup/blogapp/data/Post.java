@@ -1,11 +1,14 @@
 package com.codeup.blogapp.data;
 
+import java.util.Collection;
+
 public class Post {
 
     private Long id;
     private String title;
     private String content;
     private User user;
+    private Collection<Category> categories;
 
     public Post() {
     }
@@ -53,5 +56,13 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Collection<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Collection<Category> categories) {
+        this.categories = categories;
     }
 }
