@@ -3,6 +3,7 @@ package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.Category;
 import com.codeup.blogapp.data.Post;
+import com.codeup.blogapp.data.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,8 @@ public class CategoriesController {
     Collection<Post> samplePosts = new ArrayList<Post>();
 
     CategoriesController() {
-        for (long i = 0; i < 5; i++) {
-            samplePosts.add(new Post("Title" + i, "Content" + i, i));
+        for (long i = 1; i < 6; i++) {
+            samplePosts.add(new Post(i,"Title" + i, "Content" + i, new User("user1")));
             sampleCategories.add(new Category(i, "category" + i));
         }
 
@@ -28,7 +29,7 @@ public class CategoriesController {
             int numOfPostsToAdd = (int) Math.floor((Math.random() * 5) + 1);
             Collection<Post> randomPosts = new ArrayList<>();
             for (Post post : samplePosts) {
-                if ( (post.getId() == numOfPostsToAdd) ) {
+                if ( (post.getId() == numOfPostsToAdd) && (post.getId() > 1) ) {
                     break;
                 } else{
                     randomPosts.add(post);

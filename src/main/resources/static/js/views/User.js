@@ -5,11 +5,12 @@ export default function User(props){
 	return `
 			<div class="container border shadow">
 				<h1>Search User</h1>
-				<div class="searchBar">
+				<div class="searchBar my-5">
 					<input id="search" name="search" type="text" placeholder="Search Here">
 					<select name="findBy" id="findBy">
 						<option value="Email">EMAIL</option>
 						<option value="Username">USERNAME</option>
+						<option value="Category">CATEGORY</option>
 					</select>
 					<button id="searchBtn" type="button">Search</button>
 				</div>
@@ -32,16 +33,18 @@ export function SearchEvent(){
 function urlEndPoint( chosenSearchType ){
 	switch (chosenSearchType){
 		case 'Email':
-			return 'findByEmail?email='
+			return '/users/findByEmail?email=';
 		case 'Username':
-			return 'findByUsername?userName='
+			return '/users/findByUsername?userName=';
+		case 'Category':
+			return '/categories?category='
 	}
 }
 
 function ajaxRequestSearch(searchInput, urlEndPoint){
 	console.log("Made it to Ajax Request")
 	$.ajax({
-		url: `http://localhost:8080/api/users/${urlEndPoint}${searchInput}`,
+		url: `http://localhost:8080/api/${urlEndPoint}${searchInput}`,
 		type: "GET",
 		contentType: "application/json",
 		success: function (result) {
@@ -59,6 +62,7 @@ function ajaxRequestSearch(searchInput, urlEndPoint){
 
 function displayResultsInDOM(data){
 	let userResult = $('#userResult')
+	userResult.slideUp( 300 ).delay( 800 ).fadeIn( 400 )
 	userResult.html('');
 	userResult.append(`
 		<div class="main-body">
@@ -70,7 +74,7 @@ function displayResultsInDOM(data){
 
 	data.posts.forEach(post => {
 		userResult.append(`
-			<div class="post row row-cols-1 border rounded mb-2 shadow p-2">
+			<div class="post row row-cols-1 border rounded mb-2 shadow p-2 mx-2">
 				<h3 class="edit-title col" contenteditable="false">${post.title}</h3>
 				<h6 class="edit-body col" contenteditable="false">${post.content}</h6>
 				<div><em>Created By: ${data.username}</em></div>
