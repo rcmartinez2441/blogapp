@@ -2,6 +2,7 @@ import fetchData from "../fetchData.js";
 import createView from "../createView.js";
 
 export default function PostIndex(props) {
+	console.log(props)
 	return `
 		<div class="container border shadow pb-5">
 			<header>
@@ -12,6 +13,9 @@ export default function PostIndex(props) {
 					<input class="col-3" name="newPost-id" id="newPost-id" data-id="newPost-id" type="text" placeholder="ID"><br>
 					<input class="col-3" name="newPost-title" id="newPost-title" type="text" placeholder="Title"><br>
 					<textarea class="col-9" name="newPost-content" id="newPost-content" cols="50" rows="5" placeholder="[Enter Post Content Here]"></textarea><br>
+					<select name="categories" id="categories">
+					
+					</select>
 					<button class="col-3" id="newPost-submit" type="button"> Submit </button>
 				</form>
 	<!--         Make a  form here, forms from HTML amd will have a click event and listen to that id, the event fires off, now  -->

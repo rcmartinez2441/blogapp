@@ -18,10 +18,10 @@ public class UsersController {
 //    User user = new User(1, "testUser", "test@gmail.com", "test123", null);
 
     List<Post> post = new ArrayList<>(){{
-        add(new Post("Clifford Joins the Army", "War, war never changes",1L) );
-        add(new Post("Clifford Joins the Army", "War, war never changes",2L));
-        add(new Post("Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin",3L));
-        add(new Post("Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats",4L));
+        add(new Post("Clifford Joins the Army", "War, war never changes",1L,null) );
+        add(new Post("Clifford Joins the Army", "War, war never changes",2L, null));
+        add(new Post("Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin",3L, null));
+        add(new Post("Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats",4L,null));
     }};
 
     UsersController(){

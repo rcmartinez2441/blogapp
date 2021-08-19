@@ -4,10 +4,7 @@ package com.codeup.blogapp.web;
 import com.codeup.blogapp.data.Category;
 import com.codeup.blogapp.data.Post;
 import com.codeup.blogapp.data.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,9 +40,14 @@ public class CategoriesController {
     }
 
     @GetMapping
-    private Category getPostsByCategory(@RequestParam String category) {
+    private List<Category> getCategories (){
+        return sampleCategories;
+    }
+
+    @GetMapping("/{name}")
+    private Category getPostsByCategory(@PathVariable String name) {
         for (Category thisCategory: sampleCategories){
-            if (thisCategory.getName().equals(category)){
+            if (thisCategory.getName().equals(name)){
                 return thisCategory;
             }
         }
