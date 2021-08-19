@@ -1,31 +1,32 @@
 import {initiateFetchRequest} from "../InitiateFetchRequest.js";
 
 export default function Register(props) {
-	return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Log In</title>
-</head>
-<body>
-<h1>Register Account</h1>
-
-<form id="login-form">
-    <label for="email">Email</label>
-    <input id="email" name="username" type="email"/>
-    
-    <label for="username">Username</label>
-    <input id="username" name="username" type="text"/>
-
-    
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password"/>
-    
-    <button id="newUser-submit" type="button">Submit</button>
-</form>
-
-</body>
-</html>`;
+	return `
+<div class="container border shadow">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Log In</title>
+	</head>
+	<main>
+	<h1>Register Account</h1>
+	
+	<form id="login-form">
+		<label for="email">Email</label>
+		<input id="email" name="username" type="email"/>
+		
+		<label for="username">Username</label>
+		<input id="username" name="username" type="text"/>
+	
+		
+		<label for="password">Password</label>
+		<input id="password" name="password" type="password"/>
+		
+		<button id="newUser-submit" type="button">Submit</button>
+	</form>
+	
+	</main>
+</div>
+`;
 
 }
 

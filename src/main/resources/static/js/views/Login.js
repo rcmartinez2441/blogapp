@@ -1,11 +1,10 @@
 export default function Login(props) {
-    return `<!DOCTYPE html>
-<html>
+    return `
 <head>
     <meta charset="UTF-8"/>
     <title>Log In</title>
 </head>
-<body>
+<main class="container border shadow">
 <h1>Log In</h1>
 
 <form id="login-form">
@@ -15,8 +14,7 @@ export default function Login(props) {
     <input id="password" name="password" type="password"/>
     <input id="login-btn" type="submit" value="Log In"/>
 </form>
-</body>
-</html>`;
+</main>`;
 
 }
 

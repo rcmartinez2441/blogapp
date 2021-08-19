@@ -3,30 +3,32 @@ import createView from "../createView.js";
 
 export default function PostIndex(props) {
 	return `
-        <header>
-            <h1>Posts Page</h1>
-        </header>
-        <main>
-        	<form id="post-form" class="row">
-        		<input class="col-3" name="newPost-id" id="newPost-id" data-id="newPost-id" type="text" placeholder="ID"><br>
-        		<input class="col-3" name="newPost-title" id="newPost-title" type="text" placeholder="Title"><br>
-        		<textarea class="col-9" name="newPost-content" id="newPost-content" cols="50" rows="5" placeholder="[Enter Post Content Here]"></textarea><br>
-        		<button class="col-3" id="newPost-submit" type="button"> Submit </button>
-			</form>
-<!--         Make a  form here, forms from HTML amd will have a click event and listen to that id, the event fires off, now  -->
-            <div>
-                ${props.posts.map(post => `
-					<div class="post">
-						<h3 class="edit-title" contenteditable="false">${post.title}</h3>
-						<h6 class="edit-body" contenteditable="false">${post.content}</h6>
-						<div><em>Created By: ${post.user.username}</em></div>
-						<button type="button" data-id=${post.id} class="editPost-btn" >Edit</button>
-						<button type="button" class="deletePost-btn" data-id=${post.id}>Delete</button>
-					</div>
-				<!-- Add Edit/Delete Button -->
-				`).join('')}   
-            </div>
-        </main>
+		<div class="container border shadow pb-5">
+			<header>
+				<h1>Posts Page</h1>
+			</header>
+			<main class="container">
+				<form id="post-form" class="row">
+					<input class="col-3" name="newPost-id" id="newPost-id" data-id="newPost-id" type="text" placeholder="ID"><br>
+					<input class="col-3" name="newPost-title" id="newPost-title" type="text" placeholder="Title"><br>
+					<textarea class="col-9" name="newPost-content" id="newPost-content" cols="50" rows="5" placeholder="[Enter Post Content Here]"></textarea><br>
+					<button class="col-3" id="newPost-submit" type="button"> Submit </button>
+				</form>
+	<!--         Make a  form here, forms from HTML amd will have a click event and listen to that id, the event fires off, now  -->
+				<div>
+					${props.posts.map(post => `
+						<div class="post">
+							<h3 class="edit-title" contenteditable="false">${post.title}</h3>
+							<h6 class="edit-body" contenteditable="false">${post.content}</h6>
+							<div><em>Created By: ${post.user.username}</em></div>
+							<button type="button" data-id=${post.id} class="editPost-btn" >Edit</button>
+							<button type="button" class="deletePost-btn" data-id=${post.id}>Delete</button>
+						</div>
+					<!-- Add Edit/Delete Button -->
+					`).join('')}   
+				</div>
+			</main>
+		</div>
     `;
 }
 

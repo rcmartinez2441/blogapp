@@ -3,8 +3,8 @@ import {postDeleteClickEvent, postEditClickEvent} from "./PostIndex.js";
 
 export default function User(props){
 	return `
-			<div class="container">
-				<h2>Search User</h2>
+			<div class="container border shadow">
+				<h1>Search User</h1>
 				<div class="searchBar">
 					<input id="search" name="search" type="text" placeholder="Search Here">
 					<select name="findBy" id="findBy">
@@ -63,7 +63,8 @@ function displayResultsInDOM(data){
 	userResult.append(`
 		<div class="main-body">
 			<h2 class="my-4">Welcome Back, <span style="color:#7FC8A9">${data.username}</span></h2>
-			<div><a href="#" class="mb-5" id="updatePassword">Update Password</a></div>
+			<div class="text-end"><a href="#" class="mb-5" id="updatePassword">Update Password</a></div>
+			<h2 class="my-3">Your Posts</h2>
 		</div>
 	`);
 
