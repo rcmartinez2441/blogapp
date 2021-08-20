@@ -20,6 +20,14 @@ public class Post {
         this.categories = categories;
     }
 
+    public Post(String title, String content, Long id, Collection<Category> categories, User user){
+        this.title = title;
+        this.content = content;
+        this.id = id;
+        this.categories = categories;
+        this.user = user;
+    }
+
     public Post(Long id, String title, String content, User user) {
         this.id = id;
         this.title = title;

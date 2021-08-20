@@ -1,10 +1,12 @@
 package com.codeup.blogapp.web;
 
+import com.codeup.blogapp.data.Category;
 import com.codeup.blogapp.data.Post;
 import com.codeup.blogapp.data.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -12,15 +14,26 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostController {
 
+    User user = new User(1, "testUser", "test@gmail.com", "test123", null);
+
+    Collection<Category> sampleCategories = new ArrayList<>(){{
+        add(new Category(1L, "Javascript"));
+        add(new Category(2L, "HTML"));
+        add(new Category(3L, "blahblah"));
+    }};
+    List<Post> posts = new ArrayList<>(){{
+        add(new Post("Clifford Joins the Army", "War, war never changes", 1L, sampleCategories, user));
+        add(new Post( "Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin", 2L, sampleCategories, user));
+        add(new Post("Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats", 3L, sampleCategories, user));
+    }};
+
+    PostController() {
+
+    }
 
     @GetMapping
-    private List<Post> getPost() { // get BLOG Posts not Post request
-        User user = new User(1, "testUser", "test@gmail.com", "test123", null);
-
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post(69L, "Clifford Joins the Army", "War, war never changes", user));
-        posts.add(new Post(420L, "Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin", user));
-        posts.add(new Post(9L, "Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats", user));
+    private List<Post> getPost() {
+        // get BLOG Posts not Post request
 
         return posts;
     }
@@ -32,7 +45,7 @@ public class PostController {
         User user = new User(1, "testUser", "test@gmail.com", "test123", null);
 
         if (id == 1) {
-            return new Post(69L, "test1", "fdsfdsfafds",user);
+            return new Post(69L, "test1", "fdsfdsfafds", user);
         } else {
             return null;
         }
