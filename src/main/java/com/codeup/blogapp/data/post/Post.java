@@ -24,7 +24,13 @@ public class Post {
     @JoinColumn(name= "user_id") //Makes foreign key for user_id in post table
     private User user;
 
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="post_category",
+            //What are your two foreign keys for your two tables
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
     private Collection<Category> categories;
 
     public Post() {

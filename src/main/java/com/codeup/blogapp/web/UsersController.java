@@ -2,44 +2,31 @@ package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.user.User;
+import com.codeup.blogapp.data.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/users", headers = "Accept=application/json", produces="application/json")
 public class UsersController {
 
-    private List<User> userList = new ArrayList<>();
-//    User user = new User(1, "testUser", "test@gmail.com", "test123", null);
+    private final UserRepository userRepository;
 
-    List<Post> post = new ArrayList<>(){{
-        add(new Post("Clifford Joins the Army", "War, war never changes",1L,null) );
-        add(new Post("Clifford Joins the Army", "War, war never changes",2L, null));
-        add(new Post("Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin",3L, null));
-        add(new Post("Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats",4L,null));
-    }};
-
-    UsersController(){
-        userList.add(new User(1, "poop", "poop@gmail", "notpoop",post));
-        userList.add(new User(2, "woof", "woof@gmail", "notwoof", post));
-        userList.add(new User(3, "gabagoole4", "gabagoole4@gmail", "notgabagoole",post));
-        userList.add(new User(4, "gabagoole5", "gabagoole5@gmail", "notgabagoole", post));
-        userList.add(new User(5, "gabagoole5", "gabagoole6@gmail", "notgabagoole", post));
+    public UsersController(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 
     //***** CREATE *****
     @PostMapping
     private void createUser(@RequestBody User newUser){
-        long id = userList.size() + 1;
-        newUser.setId(id);
+        userRepository.save(newUser);
+
         System.out.println(newUser.getId());
         System.out.println(newUser.getEmail());
         System.out.println(newUser.getPassword());
-//        userList.add(new User(id, newUser.getUsername(), newUser.getEmail(), newUser.getPassword() ) );
     }
 
 
@@ -47,64 +34,42 @@ public class UsersController {
     //*****READ*****
     @GetMapping
     private List<User> getUsers(){
-        return userList;
+        return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
     private User findById(@PathVariable Long id){
-        System.out.println(id);
-        for (User user: userList){
-            if(user.getId() == id){
-                System.out.println(user.getId());
-                System.out.println(user.getEmail());
-                return user;
-            }
-        }
-        return null;
+        return userRepository.getById(id);
     }
 
     @GetMapping("/findByUsername")
     private User findByUsername(@RequestParam String userName){
-        for(User user: userList){
-            if(user.getUsername().equals(userName)){
-                return user;
-            }
-        }
-        return null;
+       return userRepository.findFirstByUsername(userName);
     }
 
     @GetMapping("/findByEmail")
     private User findByEmail(@RequestParam String email){
-        for(User user: userList){
-            if(user.getEmail().equals(email)){
-                return user;
-            }
-        }
-        return null;
+        return userRepository.findFirstByEmail(email);
     }
 
     //========================================================================
     //******UPDATE*****
     @PutMapping("/{id}")
-    private void updateUser(@RequestBody String updatedUser){
+    private void updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        userRepository.save(updatedUser);
         System.out.println("Put Works");
     }
 
     @PutMapping("/{id}/updatePassword")
     private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword){
-        for(User user : userList){
-            if (user.getId() == id){
-                System.out.println(user.getPassword());
-                user.setPassword(newPassword);
-                System.out.println(user.getPassword());
-            }
-        }
+             userRepository.getById(id);
     }
 
     //========================================================================
     //***** DELETE *****
     @DeleteMapping("/{id}")
-    private void deleteUser(){
+    private void deleteUser(@PathVariable Long id){
+        userRepository.deleteById(id);
         System.out.println("Delete Works");
     }
 }

@@ -2,6 +2,7 @@ package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.post.Post;
+import com.codeup.blogapp.data.post.PostsRepository;
 import com.codeup.blogapp.data.user.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,41 +15,22 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostController {
 
-    User user = new User(1, "testUser", "test@gmail.com", "test123", null);
+    private final PostsRepository postsRepository;
 
-    Collection<Category> sampleCategories = new ArrayList<>(){{
-        add(new Category(1L, "Javascript"));
-        add(new Category(2L, "HTML"));
-        add(new Category(3L, "blahblah"));
-    }};
-    List<Post> posts = new ArrayList<>(){{
-        add(new Post("Clifford Joins the Army", "War, war never changes", 1L, sampleCategories, user));
-        add(new Post( "Clifford Invests In Cryptocurrency", "He lost alot of money on DogeCoin", 2L, sampleCategories, user));
-        add(new Post("Clifford Finds Infinity Gauntlet", "Reality can be anything I want *SNAPS* infinite dog treats", 3L, sampleCategories, user));
-    }};
-
-    PostController() {
-
+    public PostController(PostsRepository postsRepository) {
+        this.postsRepository = postsRepository;
     }
 
     @GetMapping
     private List<Post> getPost() {
-        // get BLOG Posts not Post request
-
-        return posts;
+        return postsRepository.findAll();
     }
 
     //Ex. someone wants to make a get request with specific constraints (user only wants one post back based on ID
     //Ex. someone is making a request to like "/api/posts/1 - with 1 being ID
     @GetMapping("/{id}")
     private Post getPostByID(@PathVariable Long id) {
-        User user = new User(1, "testUser", "test@gmail.com", "test123", null);
-
-        if (id == 1) {
-            return new Post(69L, "test1", "fdsfdsfafds", user);
-        } else {
-            return null;
-        }
+        return postsRepository.getById(id);
     }
 
     @PostMapping
@@ -58,6 +40,8 @@ public class PostController {
         System.out.println(newPost.getId());
         System.out.println(newPost.getTitle());
         System.out.println(newPost.getContent());
+
+        postsRepository.save(newPost);
     }
 
     @PutMapping("/{id}")
@@ -65,11 +49,16 @@ public class PostController {
         System.out.println(updatedPost.getId());
         System.out.println(updatedPost.getTitle());
         System.out.println(updatedPost.getContent());
+        //We need to take this id and need to to a get by id and get a post back that matches the id and make sure that it exists in order to update instead of creating a new post
+        Post existingPost = postsRepository.getById(id);
+        if(existingPost == null)
+        postsRepository.save(updatedPost);
     }
 
     @DeleteMapping("/{id}")
     private void deletePost(@PathVariable Long id) {
         System.out.println("You successfully deleted post with ID: " + id);
+        postsRepository.deleteById(id);
     }
 
 }
