@@ -1,14 +1,35 @@
-package com.codeup.blogapp.data;
+package com.codeup.blogapp.data.user;
 
 
+import com.codeup.blogapp.data.post.Post;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Collection;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column (nullable = false, length = 100)
     private String username;
+
+    @Email
+    @Column(nullable = false)
     private String email;
+
+    @Column (nullable = false, length = 150)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column (nullable = false)//We will see either USER or ADMIN in db table on column
     private Role role = Role.USER;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post") //Cascade means If I were to delete a user, it would delete any posts that has that user ID
+    //What are these posts mapped by?
     private Collection<Post> posts; //Collection is for when we hook up our database, it wants a very generic. it can turn it into an arraylist or something else
 
     public enum Role {USER, ADMIN};

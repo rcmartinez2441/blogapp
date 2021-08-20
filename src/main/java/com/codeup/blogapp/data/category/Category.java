@@ -1,4 +1,6 @@
-package com.codeup.blogapp.data;
+package com.codeup.blogapp.data.category;
+
+import com.codeup.blogapp.data.post.Post;
 
 import java.util.Collection;
 
