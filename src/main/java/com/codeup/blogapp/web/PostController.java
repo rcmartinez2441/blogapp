@@ -1,18 +1,16 @@
 package com.codeup.blogapp.web;
 
-import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.post.PostsRepository;
-import com.codeup.blogapp.data.user.User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 //Your user shouldnt see '/api/posts' its more for backend
-@RequestMapping(value = "/api/posts", headers = "Accept=application/json")
+@RequestMapping(value = "/api/posts", headers = "Accept=application/json"/*, produces = "application/json"*/)
 public class PostController {
 
     private final PostsRepository postsRepository;
@@ -29,8 +27,8 @@ public class PostController {
     //Ex. someone wants to make a get request with specific constraints (user only wants one post back based on ID
     //Ex. someone is making a request to like "/api/posts/1 - with 1 being ID
     @GetMapping("/{id}")
-    private Post getPostByID(@PathVariable Long id) {
-        return postsRepository.getById(id);
+    private Optional<Post> getPostByID(@PathVariable Long id) {
+        return postsRepository.findById(id);
     }
 
     @PostMapping

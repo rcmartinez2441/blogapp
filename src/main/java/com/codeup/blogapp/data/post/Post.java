@@ -3,7 +3,7 @@ package com.codeup.blogapp.data.post;
 import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -22,13 +22,13 @@ public class Post {
     @Column (nullable = false)
     private String content;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @ManyToOne
+    @JsonBackReference
     //Makes foreign key for user_id in post table
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JsonBackReference // When you get a Post object, you will see the user but no posts
+    @ManyToMany
+    @JsonIgnore // When you get a Post object, you will see the user but no posts
     @JoinTable(
             name="post_category",
             //What are your two foreign keys for your two tables
