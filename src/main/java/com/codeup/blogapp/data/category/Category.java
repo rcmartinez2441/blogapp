@@ -20,6 +20,7 @@ public class Category{
     private String name;
 
     @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private Collection<Post> posts;
 
     public Category() {

@@ -28,7 +28,7 @@ public class Post {
     private User user;
 
     @ManyToMany
-    @JsonIgnore // When you get a Post object, you will see the user but no posts
+//    @JsonIgnore // When you get a Post object, you will see the user but no posts
     @JoinTable(
             name="post_category",
             //What are your two foreign keys for your two tables
