@@ -32,7 +32,7 @@ public class Post {
     @ManyToMany (
             fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
-            targetEntity = Post.class
+            targetEntity = Category.class
     )
 //    @JsonIgnore // When you get a Post object, you will see the user but no posts
     @JoinTable(
@@ -43,7 +43,6 @@ public class Post {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
-    @JsonIgnoreProperties({"posts"})
     private Collection<Category> categories;
 
     public Post() {
