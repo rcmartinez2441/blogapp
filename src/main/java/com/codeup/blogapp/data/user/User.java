@@ -3,6 +3,7 @@ package com.codeup.blogapp.data.user;
 
 import com.codeup.blogapp.data.post.Post;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -30,9 +31,11 @@ public class User {
     @Column (nullable = false)//We will see either USER or ADMIN in db table on column
     private Role role = Role.USER;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true) //Cascade means If I were to delete a user, it would delete any posts that has that user ID
+    @OneToMany(mappedBy = "user"/*, cascade = CascadeType.REMOVE, orphanRemoval = true*/)
+    //MappedBy is given to the field that owns the relationship, in this case Users own the Posts
+    //Cascade means If I were to delete a user, it would delete any posts that has that user ID
     //What are these posts mapped by? Will map
-    @JsonManagedReference
+    @JsonIgnoreProperties("user")
     private Collection<Post> posts; //Collection is for when we hook up our database, it wants a very generic. it can turn it into an arraylist or something else
 
     public enum Role {USER, ADMIN};

@@ -4,6 +4,7 @@ import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -23,18 +24,26 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @JsonBackReference
+//    @JsonBackReference - this will excluded everything but was replaced by @JsnonIgnoreProperties to allow a bit of limited recurssion to access some user stuff
     //Makes foreign key for user_id in post table
+    @JsonIgnoreProperties({"posts", "password"}) // WIll ignore post and password properties from user to avoid recurssion
     private User user;
 
-    @ManyToMany
+    @ManyToMany (
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
+            targetEntity = Post.class
+    )
 //    @JsonIgnore // When you get a Post object, you will see the user but no posts
     @JoinTable(
             name="post_category",
             //What are your two foreign keys for your two tables
-            joinColumns = {@JoinColumn(name = "post_id")},
-            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+            joinColumns = {@JoinColumn(name = "post_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "category_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
+    @JsonIgnoreProperties({"posts"})
     private Collection<Category> categories;
 
     public Post() {
