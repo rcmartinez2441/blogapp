@@ -24,12 +24,12 @@ public class Post {
     @ManyToOne
 //    @JsonBackReference - this will excluded everything but was replaced by @JsonIgnoreProperties to allow a bit of limited recurssion to access some user stuff
     //Makes foreign key for user_id in post table
-    @JsonIgnoreProperties({"posts", "password", "hibernateLazyInitializer"}) // WIll ignore post and password properties from user to avoid recurssion
+    @JsonIgnoreProperties({"posts", "password"}) // WIll ignore post and password properties from user to avoid recurssion
     private User user;
 
     @ManyToMany (
-//            fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+            fetch = FetchType.LAZY,
+            cascade = {/*CascadeType.MERGE, */CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH},
             targetEntity = Category.class
     )
 //    @JsonIgnore // When you get a Post object, you will see the user but no posts

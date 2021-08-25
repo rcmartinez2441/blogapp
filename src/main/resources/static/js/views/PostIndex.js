@@ -10,7 +10,7 @@ export default function PostIndex(props) {
 				<h1>Posts Page</h1>
 			</header>
 			<main class="container">
-				<form id="post-form" class="row">
+				<form id="post-form" class="row ">
 					<input class="col-3" name="newPost-id" id="newPost-id" data-id="newPost-id" type="text" placeholder="ID"><br>
 					<input class="col-3" name="newPost-title" id="newPost-title" type="text" placeholder="Title"><br>
 					<textarea class="col-9" name="newPost-content" id="newPost-content" cols="50" rows="5" placeholder="[Enter Post Content Here]"></textarea><br>

@@ -46,13 +46,11 @@ public class PostController {
         emailService.prepareAndSend(newPost, "Testing", "Testing to see if this works");
     }
 
-    @PutMapping("/{id}")
-    private void updatePost(@PathVariable Long id, @RequestBody Post updatedPost) {
+    @PutMapping("/update")
+    private void updatePost(@RequestBody Post updatedPost) {
         System.out.println(updatedPost.getTitle());
         System.out.println(updatedPost.getContent());
         //We need to take this id and need to to a get by id and get a post back that matches the id and make sure that it exists in order to update instead of creating a new post
-        Post existingPost = postsRepository.getById(id);
-        if(existingPost == null)
         postsRepository.save(updatedPost);
     }
 
