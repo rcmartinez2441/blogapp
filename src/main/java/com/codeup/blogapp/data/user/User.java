@@ -35,8 +35,7 @@ public class User {
     //MappedBy is given to the field that owns the relationship, in this case Users own the Posts
     //Cascade means If I were to delete a user, it would delete any posts that has that user ID
     //What are these posts mapped by? Will map
-//    @JsonIgnoreProperties("user")
-    @JsonManagedReference
+    @JsonIgnoreProperties("user")
     private Collection<Post> posts; //Collection is for when we hook up our database, it wants a very generic. it can turn it into an arraylist or something else
 
     public enum Role {USER, ADMIN};

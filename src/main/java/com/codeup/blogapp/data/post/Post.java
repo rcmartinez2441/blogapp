@@ -2,8 +2,6 @@ package com.codeup.blogapp.data.post;
 
 import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.user.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -24,13 +22,13 @@ public class Post {
     private String content;
 
     @ManyToOne
-//    @JsonBackReference - this will excluded everything but was replaced by @JsnonIgnoreProperties to allow a bit of limited recurssion to access some user stuff
+//    @JsonBackReference - this will excluded everything but was replaced by @JsonIgnoreProperties to allow a bit of limited recurssion to access some user stuff
     //Makes foreign key for user_id in post table
     @JsonIgnoreProperties({"posts", "password"}) // WIll ignore post and password properties from user to avoid recurssion
     private User user;
 
     @ManyToMany (
-            fetch = FetchType.LAZY,
+//            fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH},
             targetEntity = Category.class
     )
@@ -43,6 +41,7 @@ public class Post {
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
+    @JsonIgnoreProperties("posts")
     private Collection<Category> categories;
 
     public Post() {

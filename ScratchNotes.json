@@ -1,0 +1,64 @@
+[
+  {
+    "username": "USER2",
+    "email": "user2@gmail.com",
+    "password": "user2password",
+    "posts": [
+      {
+        "title": "User2 Post 1",
+        "content": "loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum ",
+        "categories": [
+          {
+            "id": 2
+          },
+          {
+            "id": 4
+          }
+        ]
+      },
+      {
+        "title": "User2 Post 2",
+        "content": "loren ipsum 2 loren ipsum  2 loren ipsum 2 loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum ",
+        "categories": [
+          {
+            "id": 3
+          },
+          {
+            "id": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "USER3",
+    "email": "user3@gmail.com",
+    "password": "user3password",
+    "posts": [
+      {
+        "title": "User3 Post 1",
+        "content": "loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum ",
+        "categories": [
+          {
+            "id": 6
+          },
+          {
+            "id": 7
+          }
+        ]
+      },
+      {
+        "title": "User3 Post 2",
+        "content": "loren ipsum 3 loren ipsum 3 loren ipsum 3 loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum loren ipsum ",
+        "categories": [
+          {
+            "id": 1
+          },
+          {
+            "id": 7
+          }
+        ]
+      }
+    ]
+  }
+]

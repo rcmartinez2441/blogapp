@@ -2,6 +2,7 @@ package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.post.PostsRepository;
+import com.codeup.blogapp.services.EmailService;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -10,13 +11,15 @@ import java.util.Optional;
 
 @RestController
 //Your user shouldnt see '/api/posts' its more for backend
-@RequestMapping(value = "/api/posts", headers = "Accept=application/json"/*, produces = "application/json"*/)
+@RequestMapping(value = "/api/posts", headers = "Accept=application/json", produces = "application/json")
 public class PostController {
 
     private final PostsRepository postsRepository;
+    private final EmailService emailService;
 
-    public PostController(PostsRepository postsRepository) {
+    public PostController(PostsRepository postsRepository, EmailService emailService) {
         this.postsRepository = postsRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -38,13 +41,13 @@ public class PostController {
         System.out.println(newPost.getId());
         System.out.println(newPost.getTitle());
         System.out.println(newPost.getContent());
-
         postsRepository.save(newPost);
+
+        emailService.prepareAndSend(newPost, "Testing", "Testing to see if this works");
     }
 
     @PutMapping("/{id}")
     private void updatePost(@PathVariable Long id, @RequestBody Post updatedPost) {
-        System.out.println(updatedPost.getId());
         System.out.println(updatedPost.getTitle());
         System.out.println(updatedPost.getContent());
         //We need to take this id and need to to a get by id and get a post back that matches the id and make sure that it exists in order to update instead of creating a new post
