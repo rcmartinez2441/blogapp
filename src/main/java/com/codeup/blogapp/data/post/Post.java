@@ -21,7 +21,7 @@ public class Post {
     @Column (nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
 //    @JsonBackReference - this will excluded everything but was replaced by @JsonIgnoreProperties to allow a bit of limited recurssion to access some user stuff
     //Makes foreign key for user_id in post table
     @JsonIgnoreProperties({"posts", "password"}) // WIll ignore post and password properties from user to avoid recurssion
