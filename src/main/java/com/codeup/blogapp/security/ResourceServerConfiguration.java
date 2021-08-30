@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 @Configuration
-@EnableResourceServer
+@EnableResourceServer //This is saying that our resource server is sitting under the realm of "api" spo anything that is server or responding through api is the resource server we want to protect
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -19,7 +19,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
     }
 
-    @Override
+    @Override //look at resource ID "api and to
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.resourceId("api");
     }
@@ -28,17 +28,18 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .disable()
+                    .disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .authorizeRequests()
-                .antMatchers("/**"/*, "/api/posts"*/, "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            .and()
-                .authorizeRequests()
-                .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/**").authenticated()
-                .anyRequest().authenticated()
+                //TODO: if you need to test all end point, just comment out the next three lines
+                    .antMatchers("/api/users").hasAnyAuthority("ADMIN", "USER")
+                    .antMatchers("/api/posts/**").hasAnyAuthority("ADMIN", "USER")
+                    .antMatchers("/swager-ui/**", "/v3/api-docs/**").permitAll()
+                    .antMatchers("/api/users/create").permitAll()
+                    .antMatchers("/**").permitAll()
+                    .anyRequest().authenticated()
             .and()
                 .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
     }

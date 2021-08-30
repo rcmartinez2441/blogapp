@@ -39,7 +39,7 @@ export function RegisterEvents (){
 			password: $(this).siblings('#password').val()
 		}
 
-		initiateFetchRequest("http://localhost:8080/api/users", 'POST', request )
+		initiateFetchRequest("http://localhost:8080/api/users/create", 'POST', request )
 
 	})
 }

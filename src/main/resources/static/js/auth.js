@@ -38,7 +38,7 @@ export default function addLoginEvent() {
  * This function should be used only after the user is logged in
  * @returns {boolean|{headers: {Authorization: string}}}
  */
-export function getAuthBearerTokenHeader() {
+export function getHeaders() {
     const token = localStorage.getItem("access_token");
     return token //if token is truthy, return first set of {}, else return second set of {}
         ? {

@@ -59,8 +59,7 @@ export default function router(URI) {
         },
         '/users': {
             returnView: Register,
-            state: {
-                users: '/api/users' /* "/getCurrentUser" after security implemented  */
+            state: {/* "/getCurrentUser" after security implemented  */
             },
             uri: '/users',
             title: 'Users',

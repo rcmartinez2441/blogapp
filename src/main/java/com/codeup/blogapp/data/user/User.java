@@ -41,7 +41,7 @@ public class User {
     public User(){
     }
 
-    public User(long id, String username, String email, String password, Collection<Post> posts) {
+    public User(Long id, String username, String email, String password, Collection<Post> posts) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -53,11 +53,11 @@ public class User {
         this.username = username;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
+//Aside from additional authenticating, we can use settings in this class to apply granular security to apply specific methods or endpoints
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -26,6 +27,8 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    //We take our UserDatial Services, Password Encorder and DAO(Repo) and it bringing everything together
+    //hands this to Spring security to take all the things we bundled up and know howe to use it
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());

@@ -1,5 +1,6 @@
 import fetchData from "../fetchData.js";
 import createView from "../createView.js";
+import {getHeaders} from "../auth.js";
 
 export default function PostIndex(props) {
 	console.log('FROM POST INDEX')
@@ -48,9 +49,7 @@ function newPostSubmitClickEvent() {
 		let url = "http://localhost:8080/api/posts"
 		let request = {
 			method: "POST",
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: getHeaders(),
 			data: JSON.stringify({
 				id: `${$('#newPost-id').val()}`,
 				title: `${$('#newPost-title').val()}`,
@@ -93,9 +92,7 @@ export function postEditClickEvent() {
 function submitEditEvent(requestBody) {
 	fetch(`http://localhost:8080/api/posts/${requestBody.id}`, {
 		method: "PUT",
-		headers: {
-			'Content-Type': 'application/json',
-		},
+		headers: getHeaders(),
 		body: JSON.stringify(requestBody)
 	}).then(response => {
 		console.log(response)
@@ -117,9 +114,7 @@ export function postDeleteClickEvent() {
 function submitDeleteEvent(id){
 	fetch(`http://localhost:8080/api/posts/${id}`, {
 		method: "DELETE",
-		headers: {
-			'Content-Type': 'application/json',
-		},
+		headers: getHeaders(),
 	}).then(response => {
 		console.log(response)
 		createView("/posts")

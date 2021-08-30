@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 @Configuration
 @EnableAuthorizationServer
+//This defines what our token looks like, where does it get the values from, where is our user services, how we are authenticating, and how do we build this token
 public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
@@ -55,18 +56,18 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
                 .refreshTokenValiditySeconds(refreshTokenValiditySeconds)
                 .authorizedGrantTypes(authorizedGrantTypes)
                 .scopes("read", "write")
-                .resourceIds("api");
+                .resourceIds("api"); //What is the resource/realm
     }
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints
+        endpoints //How do I treat endpoints, how do we compare a token to what an endpooint wants
                 .accessTokenConverter(accessTokenConverter())
                 .userDetailsService(userService)
                 .authenticationManager(authenticationManager);
     }
 
-    @Bean
+    @Bean //Takes big string and turns it into an object that Java can use
     JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         return converter;

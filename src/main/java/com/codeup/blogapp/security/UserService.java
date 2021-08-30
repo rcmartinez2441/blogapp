@@ -20,10 +20,11 @@ public class UserService implements UserDetailsService {
         this.repository = repository;
     }
 
-    @Override
+    @Override //THis is the bridge between your user;s object and your users details object. THis is the object that we want to right comparison and authentication
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found: " + email));
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
+        System.out.println(user.getPassword());
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Arrays.asList(authority));
     }
 }
