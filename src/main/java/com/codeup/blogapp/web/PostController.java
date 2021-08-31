@@ -2,7 +2,10 @@ package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.post.PostsRepository;
+import com.codeup.blogapp.data.user.User;
+import com.codeup.blogapp.data.user.UserRepository;
 import com.codeup.blogapp.services.EmailService;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,11 +18,13 @@ import java.util.Optional;
 public class PostController {
 
     private final PostsRepository postsRepository;
+    private final UserRepository userRepository;
     private final EmailService emailService;
 
-    public PostController(PostsRepository postsRepository, EmailService emailService) {
+    public PostController(PostsRepository postsRepository, EmailService emailService, UserRepository userRepository) {
         this.postsRepository = postsRepository;
         this.emailService = emailService;
+        this.userRepository  = userRepository;
     }
 
     @GetMapping
@@ -37,10 +42,13 @@ public class PostController {
     @PostMapping
     //It will looks at the fetch request and find the body property
     //"I should be able to transform it to any kind of object, in this case a Post Object"
-    private void createPost(@RequestBody Post newPost) {
+    private void createPost(@RequestBody Post newPost, OAuth2Authentication auth) {
         System.out.println(newPost.getId());
         System.out.println(newPost.getTitle());
         System.out.println(newPost.getContent());
+        String email = auth.getName();
+        User user = userRepository.findByEmail(email).get();
+        newPost.setUser(user);
         postsRepository.save(newPost);
 
         emailService.prepareAndSend(newPost, "Testing", "Testing to see if this works");
