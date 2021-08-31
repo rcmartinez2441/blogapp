@@ -2,6 +2,7 @@ package com.codeup.blogapp.data.user;
 
 
 import com.codeup.blogapp.data.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class User {
     private String email;
 
     @Column (nullable = false, length = 150)
+//    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)

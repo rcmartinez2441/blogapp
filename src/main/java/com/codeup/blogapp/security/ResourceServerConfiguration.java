@@ -34,10 +34,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             .and()
                 .authorizeRequests()
                 //TODO: if you need to test all end point, just comment out the next three lines
-                    .antMatchers("/api/users").hasAnyAuthority("ADMIN", "USER")
+                    .antMatchers("/api/users").hasAnyAuthority("ADMIN", "USER") // it doesnt know if the request are for get/post/delete/etc... perhaps I want to allow api/posts if it was a get request
                     .antMatchers("/api/posts/**").hasAnyAuthority("ADMIN", "USER")
                     .antMatchers("/swager-ui/**", "/v3/api-docs/**").permitAll()
-                    .antMatchers("/api/users/create").permitAll()
+                    .antMatchers("/api/users/create").permitAll() //Would have to append to paths for any Controller methods you need access to
                     .antMatchers("/**").permitAll()
                     .anyRequest().authenticated()
             .and()

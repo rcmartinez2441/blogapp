@@ -4,6 +4,7 @@ import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.user.User;
 import com.codeup.blogapp.data.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,6 +40,12 @@ public class UsersController {
     @GetMapping
     private List<User> getUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/token") //now your user view has all the user data
+    private User getCurrentUserFromToken(OAuth2Authentication auth){ //tyring to get info about the person logged in
+        String email = auth.getName();
+        return userRepository.findByEmail(email).get();
     }
 
     @GetMapping("/{id}")
