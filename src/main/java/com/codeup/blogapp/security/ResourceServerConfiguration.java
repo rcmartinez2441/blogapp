@@ -25,6 +25,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     }
 
     @Override
+    //*** WHAT IS THIS ***
     public void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()

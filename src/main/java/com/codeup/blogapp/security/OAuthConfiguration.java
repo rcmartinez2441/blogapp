@@ -48,6 +48,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
+    //**** What is this doing? ****
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient(clientId)
