@@ -3,6 +3,7 @@ package com.codeup.blogapp.web;
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.user.User;
 import com.codeup.blogapp.data.user.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class UsersController {
 
     //***** CREATE *****
     @PostMapping("/create")
+    @PreAuthorize("!hasAuthority('USER')") //This is coming from the token in header of request, if there's no token, then no authorities and then return true. One way to apply specific authorization to a specific method
     private void createUser(@RequestBody User newUser){
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         userRepository.save(newUser);
@@ -72,6 +74,7 @@ public class UsersController {
     }
 
     @PutMapping("/{id}/updatePassword")
+    @PreAuthorize("authentication.credentials.equals(#oldPassword)")
     private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword){
              userRepository.getById(id);
     }
