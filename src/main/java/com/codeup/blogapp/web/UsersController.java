@@ -28,12 +28,13 @@ public class UsersController {
     @PostMapping("/create")
     @PreAuthorize("!hasAuthority('USER')") //This is coming from the token in header of request, if there's no token, then no authorities and then return true. One way to apply specific authorization to a specific method
     private void createUser(@RequestBody User newUser){
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        userRepository.save(newUser);
-
         System.out.println(newUser.getId());
         System.out.println(newUser.getEmail());
         System.out.println(newUser.getPassword());
+
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        userRepository.save(newUser);
+
     }
 
 
